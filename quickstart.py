@@ -11,9 +11,9 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1iWkXgDSz1sM7bkhewXJdSMBVJrmrZj9QRFLla8NMeuY'
-SAMPLE_RANGE_NAME = 'engenharia_de_software!A4:F'
+SPREADSHEET_INFOS = 'engenharia_de_software!A4:F'
 
-TOTAL_DE_AULAS = 'engenharia_de_software!A2'
+TOTAL_CLASSES = 'engenharia_de_software!A2'
 
 def main():
     """Shows basic usage of the Sheets API.
@@ -42,16 +42,16 @@ def main():
     # Call the Sheets API
     sheet = service.spreadsheets()
     result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range=SAMPLE_RANGE_NAME).execute()
+                                range=SPREADSHEET_INFOS).execute()
     values = result.get('values', [])
     
-    totalAulas = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range=TOTAL_DE_AULAS).execute()
-    valuesTotalAulas = totalAulas.get('values')
+    totalClasses = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                                range=TOTAL_CLASSES).execute()
+    valuesTotalClasses = totalClasses.get('values')
     
     update =[]
     
-    txt = valuesTotalAulas[0][0]
+    txt = valuesTotalClasses[0][0]
     
     numbers = ""
 
@@ -59,43 +59,34 @@ def main():
        if letter.isdigit():
           numbers += str(letter)
           
-    qtdeAulasSemestre = int(numbers)
-          
-    print(qtdeAulasSemestre)
+    numberSemesterClasses = int(numbers)
 
     if not values:
         print('No data found.')
     else:
-        print('Médias alunos')
         for row in values:
             auxUpdate =[]
-            # sum the 3 student grades
-            faltas,p1,p2,p3 = int(row[2]),int(row[3]),int(row[4]), int(row[5]) 
-            media = (p1 + p2 + p3)/3
+            absences,p1,p2,p3 = int(row[2]),int(row[3]),int(row[4]), int(row[5])
+            media = (p1 + p2 + p3)/3         
             media = math.ceil(media)
             
-            if faltas / qtdeAulasSemestre > 0.25:
-                situacao = 'Reprovado por Falta'
+            if absences / numberSemesterClasses > 0.25:
+                condition = 'Reprovado por Falta'
             elif media < 50:
-                situacao = 'Reprovado por Nota'
+                condition = 'Reprovado por Nota'
             elif media < 70:
-                situacao = 'Exame Final'
+                condition = 'Exame Final'
             else: 
-                situacao = 'Aprovado'
+                condition = 'Aprovado'
                 
-            if situacao == 'Exame Final':
-                naf = 100 - media
+            if condition == 'Exame Final':
+                finalScoreNeeded = 100 - media
             else:
-                naf = 0
+                finalScoreNeeded = 0
                 
-            auxUpdate.append(situacao)
-            auxUpdate.append(naf)
+            auxUpdate.append(condition)
+            auxUpdate.append(finalScoreNeeded)
             update.append(auxUpdate)
-                
-            print('%s %s' % (row[0], row[1]),f'{faltas} {p1} {p2} {p3} {situacao} {naf}')
-            
-        for i in range (len(update)):    
-            print(update[i])
         
         request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                                              range='engenharia_de_software!G4', valueInputOption='RAW', body={'values':update}).execute()
