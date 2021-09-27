@@ -44,7 +44,24 @@ def main():
     result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                 range=SAMPLE_RANGE_NAME).execute()
     values = result.get('values', [])
+    
+    totalAulas = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                                range=TOTAL_DE_AULAS).execute()
+    valuesTotalAulas = totalAulas.get('values')
+    
     update =[]
+    
+    txt = valuesTotalAulas[0][0]
+    
+    numbers = ""
+
+    for letter in txt:
+       if letter.isdigit():
+          numbers += str(letter)
+          
+    qtdeAulasSemestre = int(numbers)
+          
+    print(qtdeAulasSemestre)
 
     if not values:
         print('No data found.')
@@ -57,7 +74,7 @@ def main():
             media = (p1 + p2 + p3)/3
             media = math.ceil(media)
             
-            if faltas % 60 > 25:
+            if faltas / qtdeAulasSemestre > 0.25:
                 situacao = 'Reprovado por Falta'
             elif media < 50:
                 situacao = 'Reprovado por Nota'
@@ -75,7 +92,7 @@ def main():
             auxUpdate.append(naf)
             update.append(auxUpdate)
                 
-            print('%s %s' % (row[0], row[4]),f'{faltas} {p1} {p2} {p3} {situacao} {naf}')
+            print('%s %s' % (row[0], row[1]),f'{faltas} {p1} {p2} {p3} {situacao} {naf}')
             
         for i in range (len(update)):    
             print(update[i])
