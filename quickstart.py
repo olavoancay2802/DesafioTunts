@@ -44,12 +44,14 @@ def main():
     result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                 range=SAMPLE_RANGE_NAME).execute()
     values = result.get('values', [])
+    update =[]
 
     if not values:
         print('No data found.')
     else:
         print('Médias alunos')
         for row in values:
+            auxUpdate =[]
             # sum the 3 student grades
             faltas,p1,p2,p3 = int(row[2]),int(row[3]),int(row[4]), int(row[5]) 
             media = (p1 + p2 + p3)/3
@@ -69,7 +71,15 @@ def main():
             else:
                 naf = 0
                 
+            auxUpdate.append(situacao)
+            auxUpdate.append(naf)
+            update.append(auxUpdate)
+                
             print('%s %s' % (row[0], row[4]),f'{faltas} {p1} {p2} {p3} {situacao} {naf}')
+            
+        for i in range (len(update)):    
+            print(update[i])
+        
 
 if __name__ == '__main__':
     main()
