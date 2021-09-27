@@ -7,7 +7,7 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1iWkXgDSz1sM7bkhewXJdSMBVJrmrZj9QRFLla8NMeuY'
@@ -97,6 +97,8 @@ def main():
         for i in range (len(update)):    
             print(update[i])
         
+        request = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID,
+                                                             range='engenharia_de_software!G4', valueInputOption='RAW', body={'values':update}).execute()
 
 if __name__ == '__main__':
     main()
