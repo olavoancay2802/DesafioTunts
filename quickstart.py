@@ -1,24 +1,19 @@
-from __future__ import print_function
 import os.path
 import math
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
-# If modifying these scopes, delete the file token.json.
+
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-# The ID and range of a sample spreadsheet.
+#ID sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1iWkXgDSz1sM7bkhewXJdSMBVJrmrZj9QRFLla8NMeuY'
+#Infos Range
 SPREADSHEET_INFOS = 'engenharia_de_software!A4:F'
-
+#Semester classes range
 TOTAL_CLASSES = 'engenharia_de_software!A2'
 
 def main():
-    """Shows basic usage of the Sheets API.
-    Prints values from a sample spreadsheet.
-    """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
