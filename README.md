@@ -14,3 +14,5 @@ _ModuleNotFoundError: No module named 'googleapiclient'_
 # Troubleshooting instructions:
 
 _If you already have package manager "Pip" installed, simply run "pip install --upgrade google-api-python-client" from the command line._
+
+\_Else, check the documentation at: https://pypi.org/project/pip/"
