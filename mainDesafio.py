@@ -44,24 +44,24 @@ def define_student_status_based_on_grades_and_absences(sheetData, amtOfClassesPe
     updatePayload = []
     
     for row in sheetData:
-            rowUpdate =[]                        
-            absences,p1,p2,p3 = int(row[2]),int(row[3]),int(row[4]),int(row[5])
-            average = (p1 + p2 + p3)/3         
-            average = math.ceil(average)
+        rowUpdate =[]                        
+        absences,p1,p2,p3 = int(row[2]),int(row[3]),int(row[4]),int(row[5])
+        average = (p1 + p2 + p3)/3         
+        average = math.ceil(average)
             
-            if absences / amtOfClassesPerSemester > 0.25:
-                status = 'Reprovado por Falta'
-            elif average < 50:
-                status = 'Reprovado por Nota'
-            elif average < 70:
-                status = 'Exame Final'
-            else: 
-                status = 'Aprovado'
+        if absences / amtOfClassesPerSemester > 0.25:
+            status = 'Reprovado por Falta'
+        elif average < 50:
+            status = 'Reprovado por Nota'
+        elif average < 70:
+            status = 'Exame Final'
+        else: 
+            status = 'Aprovado'
                 
-            if status == 'Exame Final':
-                finalScoreNeeded = 100 - average
-            else:
-                finalScoreNeeded = 0
+        if status == 'Exame Final':
+            finalScoreNeeded = 100 - average
+        else:
+            finalScoreNeeded = 0
                 
             rowUpdate.append(status)
             rowUpdate.append(finalScoreNeeded)
