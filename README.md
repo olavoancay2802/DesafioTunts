@@ -1,5 +1,19 @@
 # DesafioTunts
 
+# Prerequisites
+
+To run this project, you need the following prerequisites:
+
+1. Python 2.6 or greater.
+
+2. The <a href="https://pypi.org/project/pip/">pip</a> package management tool
+
+3. Authorization credentials for a desktop application. To learn how to create credentials for a desktop application, refer to <a href="https://developers.google.com/workspace/guides/create-credentials">Create credentials.</a>
+
+4. A Google account.
+
+# Running
+
 1. To run the exercise, simply open your preferred command line shell of your Operational System.
 
 2. Then, run "python mainDesafio.py". In some cases, you might have to run "python3 mainDesafio.py"
