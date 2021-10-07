@@ -12,13 +12,27 @@ To run this project, you need the following prerequisites:
 
 4. A Google account.
 
-# Running
+# How to run
 
-1. To run the exercise, simply open your preferred command line shell of your Operational System.
+1. To run the exercise, simply open your preferred command line shell of your Operational System(Windows Powershell or CMD).
 
-2. Then, run "python mainDesafio.py". In some cases, you might have to run "python3 mainDesafio.py"
+2. Clone this repository with Git:
 
-3. (Optional) In case you get the following issue running the python script, go to the troubleshooting instructions below:
+git clone https://github.com/olavoancay2802/DesafioTunts.git
+
+3. After it gets downloaded, you'll have to install the dependencies first, open the project directory:
+
+cd desafioTunts
+
+4. Then, run
+
+"python mainDesafio.py".
+
+In some cases, you might have to run
+
+"python3 mainDesafio.py"
+
+4. (Optional) In case you get the following issue running the python script, go to the troubleshooting instructions below:
 
 _Traceback (most recent call last):_
 _File "mainDesafio.py", line 5, in <module>_
